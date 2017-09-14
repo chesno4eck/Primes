@@ -115,6 +115,7 @@
                     <connections>
                         <outlet property="activityIndicator" destination="ZBy-Vn-7pQ" id="fuS-fc-0Ly"/>
                         <outlet property="collectionView" destination="gl0-Dg-nMN" id="JYG-2j-jk0"/>
+                        <outlet property="collectionViewBottomConstraint" destination="MPH-he-HWm" id="dDZ-OQ-kaG"/>
                         <outlet property="input" destination="bpO-Si-wKy" id="7N4-e5-KG3"/>
                         <outlet property="searchBar" destination="lqO-vO-MHl" id="m6D-Wx-VNW"/>
                         <outlet property="startButton" destination="gAj-Xw-KiH" id="p1Y-uw-1km"/>

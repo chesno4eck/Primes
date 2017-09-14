@@ -13,8 +13,9 @@ class ViewController: UIViewController {
 	@IBOutlet private var input: UITextField!
 	@IBOutlet fileprivate var activityIndicator: UIActivityIndicatorView!
 	@IBOutlet fileprivate var collectionView: UICollectionView!
-	@IBOutlet var searchBar: UISearchBar!
-	@IBOutlet var startButton: UIButton!
+	@IBOutlet fileprivate var searchBar: UISearchBar!
+	@IBOutlet fileprivate var startButton: UIButton!
+	@IBOutlet fileprivate var collectionViewBottomConstraint: NSLayoutConstraint!
 	
 	fileprivate var primes: [Int] = []
 	
@@ -23,8 +24,26 @@ class ViewController: UIViewController {
 		title = "Поиск простых чисел"
 		searchBar.isHidden = true
 		
+		input.keyboardType = .numberPad
+		searchBar.keyboardType = .numberPad
+		
 		let collectionViewTap = UITapGestureRecognizer(target: self, action: #selector(self.hideKeyboard))
 		collectionView.addGestureRecognizer(collectionViewTap)
+		
+		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
+
+	}
+	
+	
+	func keyboardWillShow(notification: NSNotification) {
+		if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+			collectionViewBottomConstraint.constant = keyboardSize.height
+		}
+	}
+	
+	func keyboardWillHide(_ : NSNotification) {
+		collectionViewBottomConstraint.constant = 8
 	}
 	
 	@objc fileprivate func hideKeyboard() {
@@ -76,8 +95,6 @@ class ViewController: UIViewController {
 			}
 		}
 	}
-
-	
 }
 
 extension ViewController: UITextFieldDelegate {
@@ -97,22 +114,32 @@ extension ViewController: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CollectionViewCell
 		cell.label.text = String(primes[indexPath.row])
+		cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+		
+		cell.selectedBackgroundView = UIView(frame: cell.contentView.bounds)
+		cell.selectedBackgroundView!.backgroundColor = #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)
+		
 		return cell
 	}
 }
+
 
 extension ViewController: UISearchBarDelegate {
 	
 	func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
 		
-		guard let numbet = Int(searchText) else {
+		guard let number = Int(searchText) else {
 			return
 		}
 		DispatchQueue.global(qos: .userInteractive).async {
-			let indexPath = ArrayFinder.index(of: numbet, in: self.primes)
+			let indexPath = ArrayFinder.index(of: number, in: self.primes)
 			DispatchQueue.main.async {
-				self.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
-				self.collectionView.cellForItem(at: indexPath)?.backgroundColor = #colorLiteral(red: 1, green: 0.5603725531, blue: 0.4931687404, alpha: 1)
+				self.collectionView.allowsMultipleSelection = false
+				self.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredVertically)
+				if number != self.primes[indexPath.row] && indexPath.row < self.collectionView.numberOfItems(inSection: 0) - 1 {
+					self.collectionView.allowsMultipleSelection = true
+					self.collectionView.selectItem(at: IndexPath(row: indexPath.row + 1, section: 0), animated: true, scrollPosition: .centeredVertically)
+				}
 			}
 		}
 	}

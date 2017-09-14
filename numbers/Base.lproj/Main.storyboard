@@ -85,7 +85,7 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="408-LB-MTO"/>
                                 </connections>
                             </collectionView>
-                            <searchBar contentMode="redraw" placeholder="Scroll to number" translatesAutoresizingMaskIntoConstraints="NO" id="lqO-vO-MHl">
+                            <searchBar contentMode="redraw" placeholder="Поиск" translatesAutoresizingMaskIntoConstraints="NO" id="lqO-vO-MHl">
                                 <rect key="frame" x="0.0" y="156" width="375" height="44"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>

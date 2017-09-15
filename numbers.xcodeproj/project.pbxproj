@@ -41,6 +41,49 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F4333DC71F6B887700708D68 /* cells */ = {
+			isa = PBXGroup;
+			children = (
+				F4B8E5611F4ECD4400836604 /* CollectionViewCell.swift */,
+			);
+			name = cells;
+			sourceTree = "<group>";
+		};
+		F4333DC81F6B888400708D68 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				F46810211F344C1A00E753C5 /* SupportEntyties.swift */,
+			);
+			name = utils;
+			sourceTree = "<group>";
+		};
+		F4333DC91F6B889900708D68 /* business logic */ = {
+			isa = PBXGroup;
+			children = (
+				F4333DC51F69395700708D68 /* BusinessLogic.swift */,
+			);
+			name = "business logic";
+			sourceTree = "<group>";
+		};
+		F4333DCA1F6B88AB00708D68 /* ui */ = {
+			isa = PBXGroup;
+			children = (
+				F4333DC71F6B887700708D68 /* cells */,
+				F467B0651F31966700D11EAA /* ViewController.swift */,
+			);
+			name = ui;
+			sourceTree = "<group>";
+		};
+		F4333DCB1F6B88C700708D68 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				F467B06A1F31966700D11EAA /* Assets.xcassets */,
+				F467B06C1F31966700D11EAA /* LaunchScreen.storyboard */,
+				F467B06F1F31966700D11EAA /* Info.plist */,
+			);
+			name = resources;
+			sourceTree = "<group>";
+		};
 		F467B0571F31966700D11EAA = {
 			isa = PBXGroup;
 			children = (
@@ -61,14 +104,11 @@
 			isa = PBXGroup;
 			children = (
 				F467B0631F31966700D11EAA /* AppDelegate.swift */,
-				F467B0651F31966700D11EAA /* ViewController.swift */,
-				F4333DC51F69395700708D68 /* BusinessLogic.swift */,
-				F46810211F344C1A00E753C5 /* SupportEntyties.swift */,
-				F4B8E5611F4ECD4400836604 /* CollectionViewCell.swift */,
 				F467B0671F31966700D11EAA /* Main.storyboard */,
-				F467B06A1F31966700D11EAA /* Assets.xcassets */,
-				F467B06C1F31966700D11EAA /* LaunchScreen.storyboard */,
-				F467B06F1F31966700D11EAA /* Info.plist */,
+				F4333DCA1F6B88AB00708D68 /* ui */,
+				F4333DC91F6B889900708D68 /* business logic */,
+				F4333DC81F6B888400708D68 /* utils */,
+				F4333DCB1F6B88C700708D68 /* resources */,
 			);
 			path = numbers;
 			sourceTree = "<group>";

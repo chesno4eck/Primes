@@ -47,7 +47,7 @@
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gl0-Dg-nMN">
                                 <rect key="frame" x="8" y="208" width="359" height="451"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.98107874393463135" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ZhU-mv-TVX">
                                     <size key="itemSize" width="51" height="26"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -70,6 +70,7 @@
                                                 </label>
                                             </subviews>
                                         </view>
+                                        <color key="backgroundColor" white="0.98107874390000005" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="Oc0-Vw-fjc" firstAttribute="width" secondItem="gac-Hv-LG4" secondAttribute="width" id="Jac-aL-0gm"/>
                                             <constraint firstItem="Oc0-Vw-fjc" firstAttribute="centerY" secondItem="gac-Hv-LG4" secondAttribute="centerY" id="jfe-bv-8aH"/>
@@ -93,7 +94,7 @@
                                 </connections>
                             </searchBar>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.98107874390000005" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="bpO-Si-wKy" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="8Wk-dI-jwm"/>
                             <constraint firstItem="gl0-Dg-nMN" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="8" id="KoI-8y-ZM1"/>

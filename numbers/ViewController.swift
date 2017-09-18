@@ -45,43 +45,15 @@ class ViewController: UIViewController {
 	
 	@IBAction fileprivate func calculateAndPrint(_ sender: Any) {
 		startActivity()
-		
-		DispatchQueue.global(qos: .userInteractive).async {
-			guard self.input.text != nil && !self.input.text!.isEmpty else {
-				DispatchQueue.main.async {
-					ADAlerts.showOkAlert(on: self, title: "Нет числа", text: "Пожалуйста, введите целое положительное число")
-				}
-				self.endActivity()
-				return
-			}
-			guard let number = Int(self.input.text!) else {
-				DispatchQueue.main.async {
-					ADAlerts.showOkAlert(on: self, title: "Так не пойдет", text: "\"\(self.input.text!)\" - это не число")
-				}
-				self.endActivity()
-				return
-			}
-			guard number > 2 else {
-				DispatchQueue.main.async {
-					ADAlerts.showOkAlert(on: self, title: "Число слишком маленькое", text: "Пожалуйста, введите число больше чем 2")
-				}
-				self.endActivity()
-				return
-			}
-			guard number < 20000001 else {
-				DispatchQueue.main.async {
-					ADAlerts.showOkAlert(on: self, title: "Число слишком большое", text: "Пожалуйста, введите число меньше чем 20.000.000")
-				}
-				self.endActivity()
-				return
-			}
-			
-			self.primes = PrimesGenerator.primes(n: number)
+		DispatchQueue.global(qos: .userInitiated).async {
+			self.primes = PrimesGenerator.primes(maxNumber: self.input.text, vc: self)
 			
 			DispatchQueue.main.async {
 				self.endActivity()
-				self.searchBar.isHidden = false
-				self.collectionView.reloadData()
+				if !self.primes.isEmpty {
+					self.searchBar.isHidden = false
+					self.collectionView.reloadData()
+				}
 			}
 		}
 	}

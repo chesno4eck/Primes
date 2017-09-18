@@ -10,7 +10,12 @@ import UIKit
 
 class PrimesGenerator: UIViewController {
 	
-	static func primes(n: Int) -> [Int] {
+	static func primes(maxNumber: String?, vc: UIViewController) -> [Int] {
+		
+		guard let n = ErrorHandler.normalize(maxNumber, vc: vc) else {
+			return []
+		}
+		
 		var numbers = [Int](2 ..< n)
 		for i in 0..<n - 2 {
 			let prime = numbers[i]

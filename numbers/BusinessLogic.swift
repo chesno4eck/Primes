@@ -16,21 +16,21 @@ class PrimesGenerator: UIViewController {
 			return []
 		}
 		
-		
-		var numbers: [Bool] = Array(repeating: true, count: n - 2)
-		for i in 2..<n - 2 {
-			guard numbers[i] == true else { continue }
-			for multiple in stride(from: 2 * i, to: n - 2, by: i) {
-				numbers[multiple] = false
-			}
-		}
+		var numbers = [Bool](repeating: true, count: n + 1)
 		
 		numbers[0] = false
 		numbers[1] = false
 		
+		for i in 0...n {
+			guard numbers[i] == true else { continue }
+			for multiple in stride(from: 2 * i, to: n + 1, by: i) {
+				numbers[multiple] = false
+			}
+		}
+		
 		return numbers.enumerated().filter {
 			$0.element == true
-			}.map{$0.offset}
+			}.map{ $0.offset }
 		
 		//old algorithm (not-bool array)
 		/**

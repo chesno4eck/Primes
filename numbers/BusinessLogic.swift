@@ -16,6 +16,24 @@ class PrimesGenerator: UIViewController {
 			return []
 		}
 		
+		
+		var numbers: [Bool] = Array(repeating: true, count: n - 2)
+		for i in 2..<n - 2 {
+			guard numbers[i] == true else { continue }
+			for multiple in stride(from: 2 * i, to: n - 2, by: i) {
+				numbers[multiple] = false
+			}
+		}
+		
+		numbers[0] = false
+		numbers[1] = false
+		
+		return numbers.enumerated().filter {
+			$0.element == true
+			}.map{$0.offset}
+		
+		//old algorithm (not-bool array)
+		/**
 		var numbers = [Int](2 ..< n)
 		for i in 0..<n - 2 {
 			let prime = numbers[i]
@@ -25,6 +43,7 @@ class PrimesGenerator: UIViewController {
 			}
 		}
 		return numbers.filter{ $0 > 0 }
+		*/
 	}
 	
 }

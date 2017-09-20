@@ -43,21 +43,26 @@ class ViewController: UIViewController {
 	}
 	
 	
-	@IBAction fileprivate func calculateAndPrint(_ sender: Any) {
+	@IBAction fileprivate func onClickFindButton(_ sender: Any) {
+		findPrimes()
+	}
+
+	fileprivate func findPrimes() {
 		startActivity()
 		DispatchQueue.global(qos: .userInitiated).async {
-			self.primes = PrimesGenerator.primes(maxNumber: self.input.text, vc: self)
+			let primesLocal = PrimesGenerator.primes(maxNumber: self.input.text, vc: self)
 			
 			DispatchQueue.main.async {
 				self.endActivity()
-				if !self.primes.isEmpty {
+				if !primesLocal.isEmpty {
+					self.primes = primesLocal
 					self.searchBar.isHidden = false
 					self.collectionView.reloadData()
 				}
 			}
 		}
 	}
-
+	
 	private func startActivity() {
 		hideKeyboard()
 		activityIndicator.startAnimating()
@@ -95,11 +100,8 @@ extension ViewController: UICollectionViewDataSource {
 	
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CollectionViewCell
-		if primes.count > indexPath.row {
-			cell.label.text = String(primes[indexPath.row])
-		}
-		cell.selectedBackgroundView = UIView(frame: cell.contentView.bounds)
-		cell.selectedBackgroundView!.backgroundColor = #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)
+		
+		cell.setup(text: String(primes[indexPath.row]))
 		
 		return cell
 	}
@@ -109,7 +111,7 @@ extension ViewController: UICollectionViewDataSource {
 extension ViewController: UITextFieldDelegate {
 	
 	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-		calculateAndPrint(self)
+		findPrimes()
 		return true
 	}
 }

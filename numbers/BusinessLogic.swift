@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PrimesGenerator: UIViewController {
+class PrimesGenerator {
 	
 	static func primes(maxNumber: String?, vc: UIViewController) -> [Int] {
 		
@@ -31,24 +31,11 @@ class PrimesGenerator: UIViewController {
 		return numbers.enumerated().filter {
 			$0.element == true
 			}.map{ $0.offset }
-		
-		//old algorithm (not-bool array)
-		/**
-		var numbers = [Int](2 ..< n)
-		for i in 0..<n - 2 {
-			let prime = numbers[i]
-			guard prime > 0 else { continue }
-			for multiple in stride(from: 2 * prime - 2, to: n - 2, by: prime){
-				numbers[multiple] = 0
-			}
-		}
-		return numbers.filter{ $0 > 0 }
-		*/
 	}
 	
 }
 
-class ArrayFinder: UIViewController {
+class ArrayFinder {
 
 	static func index(of number: Int, in array: [Int]) -> IndexPath {
 		

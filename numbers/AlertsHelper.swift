@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ADAlerts {
+class AlertsHelper {
 	class func showOkAlert(on vc: UIViewController, title: String, text: String) {
 		let alert = UIAlertController(title: title, message: text, preferredStyle: .alert)
 		let action = UIAlertAction(title: "OK", style: .default, handler: nil)

@@ -10,20 +10,20 @@ import UIKit
 
 class PrimesGenerator {
 	
-	static func primes(fromNumber: String?, toNumber: String?, vc: UIViewController) -> [Int] {
+	static func primes(maxNumber: String?, vc: UIViewController) -> [Int] {
 		
-		guard var (from, to) = ErrorHandler.normalize(fromNumber, toNumber, vc: vc) else {
+		guard let n = ErrorHandler.normalize(maxNumber, vc: vc) else {
 			return []
 		}
-
-		var numbers = [Bool](repeating: true, count: to + 1)
+		
+		var numbers = [Bool](repeating: true, count: n + 1)
 		
 		numbers[0] = false
 		numbers[1] = false
 		
-		for i in 0...to {
+		for i in 0...n {
 			guard numbers[i] == true else { continue }
-			for multiple in stride(from: 2 * i, to: to + 1, by: i) {
+			for multiple in stride(from: 2 * i, to: n + 1, by: i) {
 				numbers[multiple] = false
 			}
 		}

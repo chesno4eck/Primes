@@ -10,16 +10,14 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBOutlet private var inputFrom: UITextField!
-	@IBOutlet private var inputTo: UITextField!
-    @IBOutlet fileprivate var activityIndicator: UIActivityIndicatorView!
+	@IBOutlet private var input: UITextField!
+	@IBOutlet fileprivate var activityIndicator: UIActivityIndicatorView!
 	@IBOutlet fileprivate var collectionView: UICollectionView!
 	@IBOutlet fileprivate var searchBar: UISearchBar!
 	@IBOutlet fileprivate var startButton: UIButton!
 	@IBOutlet fileprivate var collectionViewBottomConstraint: NSLayoutConstraint!
 	
 	fileprivate var primes: [Int] = []
-	fileprivate var firstIndex: IndexPath = IndexPath(item: 0, section: 0)
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -30,10 +28,9 @@ class ViewController: UIViewController {
 	private func setupUI() {
 		title = "Поиск простых чисел"
 		searchBar.isHidden = true
-		inputTo.becomeFirstResponder()
+		input.becomeFirstResponder()
 
-		inputFrom.keyboardType = .numberPad
-		inputTo.keyboardType = .numberPad
+		input.keyboardType = .numberPad
 		searchBar.keyboardType = .numberPad
 	}
 	
@@ -45,22 +42,20 @@ class ViewController: UIViewController {
 		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
 	}
 	
+	
 	@IBAction fileprivate func onClickFindButton(_ sender: Any) {
 		findPrimes()
 	}
 
 	fileprivate func findPrimes() {
 		startActivity()
-        let fromNumber = self.inputFrom.text
-		let toNumber = self.inputTo.text
 		DispatchQueue.global(qos: .userInitiated).async {
-			let primesLocal = PrimesGenerator.primes(fromNumber: fromNumber, toNumber: toNumber, vc: self)
+			let primesLocal = PrimesGenerator.primes(maxNumber: self.input.text, vc: self)
 			
 			DispatchQueue.main.async {
 				self.endActivity()
 				if !primesLocal.isEmpty {
 					self.primes = primesLocal
-					self.firstIndex = ArrayFinder.index(of: Int(fromNumber!)!, in: self.primes)
 					self.searchBar.isHidden = false
 					self.collectionView.reloadData()
 				}
@@ -100,13 +95,13 @@ class ViewController: UIViewController {
 extension ViewController: UICollectionViewDataSource {
 	
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		return primes.count - (firstIndex.row + 1)
+		return primes.count
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CollectionViewCell
 		
-		cell.setup(text: String(primes[indexPath.row + firstIndex.row + 1]))
+		cell.setup(text: String(primes[indexPath.row]))
 		
 		return cell
 	}

@@ -10,11 +10,9 @@ import UIKit
 
 class PrimesGenerator {
 	
-	static func primes(maxNumber: String?, vc: UIViewController) -> [Int] {
+	static func primes(maxNumber: String) throws -> [Int] {
 		
-		guard let n = ErrorHandler.normalize(maxNumber, vc: vc) else {
-			return []
-		}
+		let n = try ErrorHandler.getNumber(from: maxNumber)
 		
 		var numbers = [Bool](repeating: true, count: n + 1)
 		

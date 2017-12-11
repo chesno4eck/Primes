@@ -49,16 +49,27 @@ class ViewController: UIViewController {
 
 	fileprivate func findPrimes() {
 		startActivity()
+		
+		guard let inputText = self.input.text else {
+			return
+		}
+		
 		DispatchQueue.global(qos: .userInitiated).async {
-			let primesLocal = PrimesGenerator.primes(maxNumber: self.input.text, vc: self)
-			
-			DispatchQueue.main.async {
-				self.endActivity()
-				if !primesLocal.isEmpty {
-					self.primes = primesLocal
-					self.searchBar.isHidden = false
-					self.collectionView.reloadData()
+			do {
+				let primesLocal = try PrimesGenerator.primes(maxNumber: inputText)
+				
+				DispatchQueue.main.async {
+					self.endActivity()
+					
+					if !primesLocal.isEmpty {
+						self.primes = primesLocal
+						self.searchBar.isHidden = false
+						self.collectionView.reloadData()
+					}
 				}
+
+			} catch {
+				ErrorHandler.show(error, on: self)
 			}
 		}
 	}
@@ -76,13 +87,13 @@ class ViewController: UIViewController {
 	
 	private let bottomConstraintConstant: CGFloat = 8
 	
-	func keyboardWillShow(notification: NSNotification) {
+	@objc func keyboardWillShow(notification: NSNotification) {
 		if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
 			collectionViewBottomConstraint.constant = keyboardSize.height + bottomConstraintConstant
 		}
 	}
 	
-	func keyboardWillHide(_ : NSNotification) {
+	@objc func keyboardWillHide(_ : NSNotification) {
 		collectionViewBottomConstraint.constant = bottomConstraintConstant
 	}
 	

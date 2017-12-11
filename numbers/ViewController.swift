@@ -69,7 +69,10 @@ class ViewController: UIViewController {
 				}
 
 			} catch {
-				ErrorHandler.show(error, on: self)
+				DispatchQueue.main.async {
+					ErrorHandler.show(error, on: self)
+					self.endActivity()
+				}
 			}
 		}
 	}
